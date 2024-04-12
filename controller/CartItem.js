@@ -15,7 +15,7 @@ exports.addToCart = async(req,res)=>{
         if(!productId){
             return res.status(400).jsin({
                 success:false,
-                message:"All filelds are required",
+                message:"All fields are required",
             });
         }
         console.log(req.body);
