@@ -86,7 +86,7 @@ app.get("/",(req,res)=>{
     });
 });
 
-const {server, io} = initSocket(app);
-server.listen(PORT,()=>{
+//const {server, io} = initSocket(app);
+app.listen(PORT,()=>{
     console.log(`App is listening at ${PORT}`);
 })
