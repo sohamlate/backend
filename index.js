@@ -1,22 +1,22 @@
 const express = require("express");
 const app = express();
 
-const userRoute = require("./route/user");
-const profileRoute = require("./route/Profile");
-const paymentRoute = require("./route/Payment");
-const productRoute = require("./route/Product");
-// const {initSocket} = require("./socket1")
-const database = require("./config/database");
-const cookieparser = require("cookie-parser");
-const cors = require("cors");
-const { cloudinaryConnect } = require("./config/cloudinary");
-const fileUpload = require("express-fileupload");
-const dotenv = require("dotenv");
-const session = require("express-session");
-const passport = require("passport");
-const { verifyCallback } = require("./middleware/logingoogle");
-const OAuth2Strategy = require("passport-google-oauth2").Strategy;
-const User = require("./model/User"); // Import Passport
+// const userRoute = require("./route/user");
+// const profileRoute = require("./route/Profile");
+// const paymentRoute = require("./route/Payment");
+// const productRoute = require("./route/Product");
+// // const {initSocket} = require("./socket1")
+// const database = require("./config/database");
+// const cookieparser = require("cookie-parser");
+// const cors = require("cors");
+// const { cloudinaryConnect } = require("./config/cloudinary");
+// const fileUpload = require("express-fileupload");
+// const dotenv = require("dotenv");
+// const session = require("express-session");
+// const passport = require("passport");
+// const { verifyCallback } = require("./middleware/logingoogle");
+// const OAuth2Strategy = require("passport-google-oauth2").Strategy;
+// const User = require("./model/User"); // Import Passport
 
 
 
