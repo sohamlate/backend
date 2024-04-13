@@ -84,7 +84,6 @@ app.use("/api/v1/profile", profileRoute);
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/payment", paymentRoute);
 
-app.get('/favicon.ico', (req, res) => res.status(204));
 
 app.get("/", (req, res) => {
   return res.json({
