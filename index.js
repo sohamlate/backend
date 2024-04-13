@@ -18,6 +18,9 @@ const { verifyCallback } = require("./middleware/logingoogle");
 const OAuth2Strategy = require("passport-google-oauth2").Strategy;
 const User = require("./model/User"); // Import Passport
 
+
+
+
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 
@@ -25,6 +28,8 @@ database.connect();
 
 app.use(express.json());
 app.use(cookieparser());
+
+
 
 app.use(cors());
 
@@ -78,6 +83,8 @@ app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/profile", profileRoute);
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/payment", paymentRoute);
+
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 app.get("/", (req, res) => {
   return res.json({
