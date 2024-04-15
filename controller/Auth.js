@@ -124,10 +124,30 @@ exports.signup = async(req,res)=>{
             firstname, lastname , email , password:hashPassword ,contactNumber , accountType , additionalDetail:profileDetail._id, image:`https://api.dicebear.com/5.x/initials/svg?seed=${firstname} ${lastname}`, 
         })
 
-        return res.status(200).json({
+        const payload = {
+            email:user.email,
+            accountType:user.accountType,
+            id:user._id,
+        };
+
+        const token = jwt.sign(payload , process.env.JWT_SECRETE,{
+            expiresIn:"2h",
+        });
+
+        user.token = token;
+        user.password = undefined;
+
+        const options = {
+            expiresIn: new Date(Date.now() + 3*24*60*60*1000),
+            httpOnly:true,
+        };
+
+        res.cookie("token",token,options).status(200).json({
             success:true,
-            message:"User is registred successfully",
-        })
+            token,
+            user,
+            message:"login successfully",
+        });
 
 
     }
