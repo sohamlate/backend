@@ -1,20 +1,29 @@
 const Profile = require("../model/Profile");
 const User = require("../model/User");
+const {uploadImageToCloudinary} = require("../utils/ImageUploader");
 
 exports.updateProfile = async(req,res)=>{
    try{
-        const {gender ,dateOfBirth , about , contactNo } = req.body;
+        const {gender ,dateOfBirth , about , contactNo, userId,address } = req.body;
 
-        const id = req.user.id;
+        const thumbnail = null;
+    if(req.files){
+         thumbnail = req.files.image;
+    }
 
-        if(!gender || !dateOfBirth || !about || !contactNo){
+       
+        if(!gender || !dateOfBirth || !about || !contactNo || !userId || !address ){
             return res.status(403).json({
                 success:false,
                 messsage:"All fields are required ",
             });
         }
+        const thumbnailImage = {};
+        if(thumbnail){
+         thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);
+        }
 
-        const userDetail = await User.findById(id);
+        const userDetail = await User.findById(userId);
         const profileId = userDetail.additionalDetail;
         const profileDetail = await Profile.findById(profileId);
 
@@ -22,12 +31,19 @@ exports.updateProfile = async(req,res)=>{
         profileDetail.dateOfBirth = dateOfBirth;
         profileDetail.about = about;
         profileDetail.contactNo = contactNo;
+        profileDetail.address = address;
+
+        if(thumbnail){
+        await User.findOneAndUpdate({_id:userId},{image:thumbnailImage.url});
+        }
+
 
         await profileDetail.save();
 
         return res.status(200).json({
             success:true,
             message:"Additional info added ",
+            
         });
    }
    catch(err){
@@ -72,13 +88,14 @@ exports.deleteProfile = async(req,res)=>{
 
 exports.getUserAllData = async(req,res)=>{
     try{
-        const userId1 = req.user.id;
+        const {userId} = req.body ;
 
-        const userDetail = await User.findById(userId1).populate("additionalDetail")
+        const userDetail = await User.findById(userId).populate("additionalDetail");
 
         return res.status(200).json({
             success:true,
             message:"User all detail get successsfully",
+            userDetail,
         })
     }
     catch(err){
