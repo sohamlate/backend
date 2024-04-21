@@ -319,3 +319,47 @@ exports.displayMyProduct = async(req,res)=>{
         });
     }
 }
+
+exports.editProduct = async (req, res) => {
+    try {
+        const { productName, productDescription, price,productId } = req.body;
+        let thumbnail = null;
+        if(req.files){
+            thumbnail = req.files.image;
+       }
+
+       console.log(thumbnail,"fdsf");
+        
+       let thumbnailImage = {};
+       if(thumbnail){
+           thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);
+          }
+        // Update only the specified fields using $set
+        const updatedFields = {};
+        if (productName) updatedFields.productName = productName;
+        if (productDescription) updatedFields.productDescription = productDescription;
+        if (price) updatedFields.price = price;
+        if(thumbnailImage) updatedFields.thumbnail = thumbnailImage.url;
+
+        
+       
+        const updatedProduct = await Product.findByIdAndUpdate(productId, { $set: updatedFields }, { new: true });
+        console.log(updatedProduct);
+        if (!updatedProduct) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+        res.status(200).json({
+            success:true,
+            message: "Product updated successfully",
+            product: updatedProduct
+        });
+    } catch (err) {
+        console.error("Error editing product:", err);
+        res.status(500).json({
+            success:false,
+            message: "Internal server error"
+        });
+    }
+};

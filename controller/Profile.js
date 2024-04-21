@@ -6,7 +6,7 @@ exports.updateProfile = async(req,res)=>{
    try{
         const {gender ,dateOfBirth , about , contactNo, userId,address } = req.body;
 
-        const thumbnail = null;
+        let thumbnail = null;
     if(req.files){
          thumbnail = req.files.image;
     }
@@ -18,7 +18,7 @@ exports.updateProfile = async(req,res)=>{
                 messsage:"All fields are required ",
             });
         }
-        const thumbnailImage = {};
+        let thumbnailImage = {};
         if(thumbnail){
          thumbnailImage = await uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME);
         }

@@ -7,9 +7,9 @@ const { getProductDetails } = require("./Product");
 exports.createRating = async(req,res)=>{
     try{
 
-        const {userId} = req.user.id;
+      
 
-        const {rating ,review,productId} = req.body;
+        const {rating ,review,productId,userId} = req.body;
     
         const getProductDetails = await Product.findOne({_id:productId , customerPurchase:{$elemMatch:{$eq:userId}}, });
     

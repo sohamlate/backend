@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {createProduct,getProductDetails,showAllProducts,getsellerproduct,deleteProduct,displayMyProduct} = require("../controller/Product");
+const {createProduct,getProductDetails,showAllProducts,getsellerproduct,deleteProduct,displayMyProduct,editProduct} = require("../controller/Product");
 const {createCategory,showAllCategory,categoryDetails,getid} = require("../controller/Category");
 const {createRating,getAllRatings,getAverageRating} = require("../controller/RatingAndReview");
 const {addToCart,removeFromCart,displayCartItem} = require("../controller/CartItem");
@@ -13,6 +13,7 @@ router.get("/getsellerproduct",getsellerproduct);
 router.get("/getallproduct",showAllProducts);
 router.post("/getproductdetail",getProductDetails);
 router.post("/deleteproduct",deleteProduct);
+router.post("/editProduct",editProduct);
 
 router.post("/createCategory",auth,isAdmin,createCategory);
 router.get("/getCategoryDetail",showAllCategory);

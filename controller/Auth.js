@@ -117,11 +117,11 @@ exports.signup = async(req,res)=>{
             gender:null,
             dateOfBirth:null,
             about:null,
-            contactNumber:null,
+            contactNo:null,
         });
 
         const user = await User.create({
-            firstname, lastname , email , password:hashPassword ,contactNumber , accountType , additionalDetail:profileDetail._id, image:`https://api.dicebear.com/5.x/initials/svg?seed=${firstname} ${lastname}`, 
+            firstname, lastname , email , password:hashPassword ,contactNo:contactNumber , accountType , additionalDetail:profileDetail._id, image:`https://api.dicebear.com/5.x/initials/svg?seed=${firstname} ${lastname}`, 
         })
 
         const payload = {
