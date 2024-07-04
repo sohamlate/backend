@@ -27,62 +27,62 @@ const PORT = process.env.PORT || 4000;
 database.connect();
 
 app.use(express.json());
-app.use(cookieparser());
+// app.use(cookieparser());
 
 
 
 app.use(cors());
 
-app.use(
-  session({
-    secret: "sdgbvs15234",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// app.use(
+//   session({
+//     secret: "sdgbvs15234",
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// );
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-app.use(passport.session());
+// app.use(passport.session());
 
-passport.use(
-  new OAuth2Strategy(
-    {
-      clientID: process.env.clientid, // Your Google OAuth client ID
-      clientSecret: process.env.clientsecrete, // Your Google OAuth client secret
-      callbackURL: "http://localhost:4000/api/v1/auth/google/callback", // Callback URL configured in Google Developer Console
-      scope: ["profile", "email"], // Scope of user information requested from Google
-    },
-    verifyCallback
-  )
-);
+// passport.use(
+//   new OAuth2Strategy(
+//     {
+//       clientID: process.env.clientid, // Your Google OAuth client ID
+//       clientSecret: process.env.clientsecrete, // Your Google OAuth client secret
+//       callbackURL: "http://localhost:4000/api/v1/auth/google/callback", // Callback URL configured in Google Developer Console
+//       scope: ["profile", "email"], // Scope of user information requested from Google
+//     },
+//     verifyCallback
+//   )
+// );
 
-passport.serializeUser(function (user, done) {
-  done(null, user.email);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user.email);
+// });
 
-passport.deserializeUser(async function (email, done) {
-  try {
-    const user = await User.findOne({ email });
-    done(null, user);
-  } catch (error) {
-    done(error);
-  }
-});
+// passport.deserializeUser(async function (email, done) {
+//   try {
+//     const user = await User.findOne({ email });
+//     done(null, user);
+//   } catch (error) {
+//     done(error);
+//   }
+// });
 
-app.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: "/tmp",
-  })
-);
+// app.use(
+//   fileUpload({
+//     useTempFiles: true,
+//     tempFileDir: "/tmp",
+//   })
+// );
 
-cloudinaryConnect();
+// cloudinaryConnect();
 
-app.use("/api/v1/auth", userRoute);
-app.use("/api/v1/profile", profileRoute);
-app.use("/api/v1/product", productRoute);
-app.use("/api/v1/payment", paymentRoute);
+// app.use("/api/v1/auth", userRoute);
+// app.use("/api/v1/profile", profileRoute);
+// app.use("/api/v1/product", productRoute);
+// app.use("/api/v1/payment", paymentRoute);
 
 
 app.get("/", (req, res) => {
